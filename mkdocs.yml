@@ -6,8 +6,22 @@ repo_name: KenethGarcia/SieveComP
 theme:
   name: readthedocs
 
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - TOML Schema: TOML_schema.md
+  - Tutorials:
+    - Quickstart API: tutorials/01_quickstart_api.ipynb
+    - SeisComP Queries Intro: tutorials/02_Seiscomp_Queries_Intro.ipynb
+    - Introducing Duplicate Search: tutorials/03_Introducing_Duplicate_Search_SieveComP.ipynb
+    - Polygon Usage: tutorials/04_Polygon_usage.ipynb
+    - Advanced SieveComP Usage: tutorials/05_Advanced_SieveComP_Usage.ipynb
+    - Generating TOML with AI: tutorials/06_Generating_TOML_with_AI.ipynb
+  - API Reference: api_reference.md
+
 plugins:
   - search
+  - mkdocs-jupyter
   - mkdocstrings:
       handlers:
         python:
