@@ -31,5 +31,5 @@ FROM Event AS EvMF
     LEFT JOIN EventDescription ON EvMF._oid = EventDescription._parent_oid
     LEFT JOIN Comment ON Comment._parent_oid = EvMF._oid
 WHERE
-    Origin.time_value >= '2023-03-17 00:00:00'
-    AND Origin.time_value < '2024-08-01 00:00:00'
+    Origin.time_value >= '2026-03-17 00:00:00'
+    AND Origin.time_value < '2026-08-01 00:00:00'
