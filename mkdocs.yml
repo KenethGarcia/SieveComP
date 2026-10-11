@@ -17,6 +17,9 @@ nav:
     - Polygon Usage: tutorials/04_Polygon_usage.ipynb
     - Advanced SieveComP Usage: tutorials/05_Advanced_SieveComP_Usage.ipynb
     - Generating TOML with AI: tutorials/06_Generating_TOML_with_AI.ipynb
+  - Interfaces & Apps:
+      - Command Line Interface (CLI): cli.md
+      - Streamlit Web Application: frontend.md
   - API Reference: api_reference.md
 
 plugins:
@@ -26,3 +29,13 @@ plugins:
       handlers:
         python:
           paths: ["."]
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.snippets:
+      base_path: ["."]  # Allows including files from the project root
