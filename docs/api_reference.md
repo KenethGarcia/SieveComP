@@ -4,13 +4,13 @@ This section provides the auto-generated API documentation for the core classes 
 
 ## Core Runner Class
 
-::: src.core.runner.Runner
+::: sievecomp.core.runner.Runner
 
 ## Configuration Management Class
 
-::: src.core.config_loader.ConfigManager
+::: sievecomp.core.config_loader.ConfigManager
 
 ## Database Management Class
 
-::: src.core.database_manager.DatabaseManager
+::: sievecomp.core.database_manager.DatabaseManager
 
