@@ -1,0 +1,115 @@
+# ============================================================
+# check_earthquakes_volcanic_eruptions_in_volcanic_zones.toml
+# ============================================================
+
+# ── Settings ──────────────────────────────────────────────────
+[settings]
+event_type_column = "event_type"
+time_column = "time_value"
+author_column = "creationInfo_author"
+
+# ── Returned table columns ────────────────────────────────────
+[output]
+columns = ["time_value",
+    "publicID",
+    "text",
+    "depth_value",
+    "magnitude_value",
+    "magnitude_type",
+    "quality_standardError",
+    "depth_uncertainty",
+    "latitude_uncertainty",
+    "longitude_uncertainty",
+    "quality_associatedPhaseCount",
+    "creationInfo_author",
+    "event_type",
+    "creationInfo_agencyID"]
+
+# ── Database connection ───────────────────────────────────────
+[[database]]
+name       = "SeisComP6"
+env_file   = "../../../examples/data/credentials/.env"
+env_prefix = "SERVER_SC6"
+
+# ── SQL query ────────────────────────────────────────────────
+[[queries]]
+name       = "SeisComP6"
+sql_file   = "seismic_revision_routine.sql"
+description= "Query to retrieve events from SeisComP6 database"
+database   = "SeisComP6"
+
+# ── Polygon files ────────────────────────────────────────────
+[[polygons]]
+name        = "ovsman"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obsman.txt"
+description = "Observatorio Sismológico de Manizales - OVSM region"
+
+[[polygons]]
+name        = "ovspop"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspop.txt"
+description = "Observatorio Sismológico de Popayán - OVSPOP region"
+
+[[polygons]]
+name        = "ovspopvnh"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspopvnh.txt"
+description = "Observatorio Sismológico de Popayán - VNH region"
+
+[[polygons]]
+name        = "ovsp1"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas1.txt"
+description = "Observatorio Sismológico de Pasto - OVS1 region"
+
+[[polygons]]
+name        = "ovsp2"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas2.txt"
+description = "Observatorio Sismológico de Pasto - OVS2 region"
+
+[[polygons]]
+name        = "ovsp3"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas3.txt"
+description = "Observatorio Sismológico de Pasto - OVS3 region"
+
+[[polygons]]
+name        = "ovsp4"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas4.txt"
+description = "Observatorio Sismológico de Pasto - OVS4 region"
+
+[[polygons]]
+name        = "ovsp5"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas5.txt"
+description = "Observatorio Sismológico de Pasto - OVS5 region"
+
+[[polygons]]
+name        = "ovsp6"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas6.txt"
+description = "Observatorio Sismológico de Pasto - OVS6 region"
+
+[[polygons]]
+name        = "ovsp7"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas7.txt"
+description = "Observatorio Sismológico de Pasto - OVS7 region"
+
+[[polygons]]
+name        = "ovsp8"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas8.txt"
+description = "Observatorio Sismológico de Pasto - OVS8 region"
+
+[[polygons]]
+name        = "ovsp9"
+path        = "../../../examples/data/polygons/SGC/volcanological_observatories/obspas9.txt"
+description = "Observatorio Sismológico de Pasto - OVS9 region"
+
+# ──────────────────────────────────────────────────────────────
+# Checks configuration
+# ──────────────────────────────────────────────────────────────
+
+[[checks]]
+name = "Earthquakes and volcanic eruptions inside volcanic zones"
+event_type = ["earthquake", "volcanic eruption"]
+
+    [[checks.conditions]]
+    rule_type = "polygon"
+    lat_col = "latitude_value"
+    lon_col = "longitude_value"
+    mode = "inside"
+    polygon = ["ovsman", "ovspop", "ovspopvnh", "ovsp1", "ovsp2", "ovsp3", "ovsp4", "ovsp5", "ovsp6", "ovsp7", "ovsp8", "ovsp9"]

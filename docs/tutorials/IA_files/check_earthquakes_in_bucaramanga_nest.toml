@@ -1,0 +1,73 @@
+[settings]
+event_type_column = "event_type"
+time_column = "time_value"
+author_column = "creationInfo_author"
+
+
+[output]
+columns = [
+"time_value",
+"publicID",
+"text",
+"depth_value",
+"magnitude_value",
+"magnitude_type",
+"quality_standardError",
+"depth_uncertainty",
+"latitude_uncertainty",
+"longitude_uncertainty",
+"quality_associatedPhaseCount",
+"creationInfo_author",
+"event_type",
+"creationInfo_agencyID"
+]
+
+
+[[database]]
+name       = "SeisComP6"
+env_file   = "../../../examples/data/credentials/.env"
+env_prefix = "SERVER_SC6"
+
+
+[[queries]]
+name       = "SeisComP6"
+sql_file   = "seismic_revision_routine.sql"
+description= "Query to retrieve events from SeisComP6 database"
+database   = "SeisComP6"
+
+
+[[checks]]
+name = "Earthquakes inside Bucaramanga nest"
+logic = "and"
+event_type = "earthquake"
+
+# 1. Latitude condition
+[[checks.conditions]]
+rule_type = "numeric"
+column = "latitude_value"
+mode = "between"
+lower = 6.0
+upper = 8.0
+
+# 2. Longitude condition
+[[checks.conditions]]
+rule_type = "numeric"
+column = "longitude_value"
+mode = "between"
+lower = -74.0
+upper = -72.0
+
+# 3. Depth condition
+[[checks.conditions]]
+rule_type = "numeric"
+column = "depth_value"
+mode = "between"
+lower = 120.0
+upper = 180.0
+
+# 4. Temporal condition (Events since 2026-03-17)
+[[checks.conditions]]
+rule_type = "temporal"
+column = "time_value"
+mode = "ge"
+threshold = "2026-03-17T00:00:00Z"
