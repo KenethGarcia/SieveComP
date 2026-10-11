@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Command Line Interface (CLI) - SieveComP</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Command Line Interface (CLI)";
+        var mkdocs_page_input_path = "cli.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SieveComP
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../TOML_schema/">TOML Schema</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/01_quickstart_api/">Python API Quickstart</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/02_Seiscomp_Queries_Intro/">SeisComP SQL Queries Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/03_Introducing_Duplicate_Search_SieveComP/">Optimizing Duplicates Search</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/04_Polygon_usage/">Polygon validation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/05_Advanced_SieveComP_Usage/">SieveComP: Advanced Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/06_Generating_TOML_with_AI/">Generating TOML files with AI</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Interfaces & Apps</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Command Line Interface (CLI)</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../frontend/">Streamlit Web Application</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api_reference/">API Reference</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SieveComP</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Interfaces & Apps</li>
+      <li class="breadcrumb-item active">Command Line Interface (CLI)</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/KenethGarcia/SieveComP/edit/master/docs/cli.md">Edit on KenethGarcia/SieveComP</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sievecomp-command-line-interface-cli">SieveComP Command Line Interface (CLI)</h1>
+<p>The SieveComP CLI (<code>revision_cli.py</code>) provides a robust, terminal-based interface for executing the Seismicity Review Routine tailored for the National Seismological Network of Colombia (RSNC). It demonstrates the engine's capability to dynamically query databases, both in SeisComP3 and SeisComP6 databases based on an internal temporal cutoff (<code>2026-03-17</code>), apply complex TOML rules, and output clean, formatted results directly to your console or a file.</p>
+<blockquote>
+<p><strong>NOTE:</strong> This CLI is provided as an advanced example of <em>SieveComP</em>'s functionality and usability.</p>
+</blockquote>
+<h1 id="execution">Execution</h1>
+<p>Run the CLI from the root directory of the package using Python's module execution:</p>
+<pre><code class="language-bash">python -m examples.cli.revision_cli --config path/to/your/config.toml [OPTIONS]
+</code></pre>
+<h1 id="command-line-options">Command-Line Options</h1>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code>, <code>--config</code></td>
+<td>Path to the TOML configuration file defining the rules and parameters for the seismicity review.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>-s</code>, <code>--start</code></td>
+<td>Start date for the event query in <code>YYYY-MM-DD</code> format.</td>
+<td>Conditional</td>
+</tr>
+<tr>
+<td><code>-e</code>, <code>--end</code></td>
+<td>End date for the event query in <code>YYYY-MM-DD</code> format.</td>
+<td>Conditional</td>
+</tr>
+<tr>
+<td><code>-a</code>, <code>--author</code></td>
+<td>Filter events by the author of the review.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>-f</code>, <code>--skip-locatable</code></td>
+<td>If specified, skips the potentially locatable events in the filtering process.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>-o</code>, <code>--output</code></td>
+<td>Flag to save the cleaned, processed results to a dynamically named CSV file <code>revision_RSNC_YYYYMMDD_HHMMSS.csv</code> in the current working directory.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>NOTE:</strong> You must provide either a start date (<code>-s</code>), an author (<code>-a</code>), or both to execute the routine. Providing an end date (<code>-e</code>) without a start date will result in a usage error.</p>
+</blockquote>
+<h1 id="usage-examples">Usage Examples</h1>
+<p>Assuming that you set an alias <code>revision</code>:</p>
+<pre><code class="language-bash">alias revision=&quot;python -m examples.cli.revision_cli -c examples/data/configs/seismic_revision_routine.toml&quot;
+</code></pre>
+<p>you can run the following examples:</p>
+<ol>
+<li><strong>Standard Time-Window Review:</strong>
+Run the routine for a specific time block, generating an on-screen table:</li>
+</ol>
+<pre><code class="language-bash">revision -s 20260301T000000 -e 20260315T235959
+</code></pre>
+<p>The CLI allows to set almost any arbitrary time format by using quotes, so you can also run in example:</p>
+<pre><code class="language-bash">revision -s &quot;03 March 2026&quot; -e &quot;15 March 2026&quot;
+</code></pre>
+<ol>
+<li><strong>Author-Based Review:</strong>
+Filter the catalog for a specific author, hide locatable events to focus purely on critical anomalies, and export the results to a CSV file:</li>
+</ol>
+<pre><code class="language-bash">revision -a &quot;gerard&quot; -f -o
+</code></pre>
+<h1 id="output-formatting">Output Formatting</h1>
+<p>When printed to the terminal, the CLI automatically applies several quality-of-life formatting steps to the final DataFrame:</p>
+<ul>
+<li><strong>Encoding Fixes:</strong> Utilizes the <code>ftfy</code> library to correct text encoding issues within the region descriptions (<code>text</code> column).</li>
+<li><strong>Compact Display:</strong> Removes redundant strings (like ", Colombia") and maps long SeisComP column names to compact Spanish headers (e.g., <code>quality_standardError</code> becomes <code>RMS</code>, <code>depth_value</code> becomes <code>Prof</code>) to fit neatly in standard terminal windows. Numeric fields are rounded to two decimal places.</li>
+<li><strong>Execution Summary:</strong> Concludes with a brief statistical summary, counting the number of flagged events and potentially locatable events (unless the <code>-f</code> flag was used).</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../tutorials/06_Generating_TOML_with_AI/" class="btn btn-neutral float-left" title="Generating TOML files with AI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../frontend/" class="btn btn-neutral float-right" title="Streamlit Web Application">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/KenethGarcia/SieveComP" class="fa fa-code-fork" style="color: #fcfcfc"> KenethGarcia/SieveComP</a>
+        </span>
+    
+    
+      <span><a href="../tutorials/06_Generating_TOML_with_AI/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../frontend/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

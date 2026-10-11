@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Streamlit Web Application - SieveComP</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Streamlit Web Application";
+        var mkdocs_page_input_path = "frontend.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SieveComP
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../TOML_schema/">TOML Schema</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/01_quickstart_api/">Python API Quickstart</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/02_Seiscomp_Queries_Intro/">SeisComP SQL Queries Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/03_Introducing_Duplicate_Search_SieveComP/">Optimizing Duplicates Search</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/04_Polygon_usage/">Polygon validation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/05_Advanced_SieveComP_Usage/">SieveComP: Advanced Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/06_Generating_TOML_with_AI/">Generating TOML files with AI</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Interfaces & Apps</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/">Command Line Interface (CLI)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Streamlit Web Application</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api_reference/">API Reference</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SieveComP</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Interfaces & Apps</li>
+      <li class="breadcrumb-item active">Streamlit Web Application</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/KenethGarcia/SieveComP/edit/master/docs/frontend.md">Edit on KenethGarcia/SieveComP</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sievecomp-web-interface-frontend">SieveComP Web Interface (Frontend)</h1>
+<p>The SieveComP Frontend (<code>app.py</code>) is a powerful, interactive Streamlit application designed for users who prefer a graphical interface over the command line. It wraps the core SieveComP engine in a user-friendly dashboard, allowing analysts to visually filter catalogs, execute complex rule checks, manually review anomalous events, and maintain a persistent audit log of their work.</p>
+<h1 id="execution">Execution</h1>
+<p>Run the Streamlit app from the root directory of the package:</p>
+<pre><code class="language-bash">streamlit run examples/frontend/app.py
+</code></pre>
+<h1 id="key-features-navigation">Key Features &amp; Navigation</h1>
+<p>The interface supports seamless toggling between English (EN) and Spanish (ES) and is divided into two primary views accessible via the sidebar:</p>
+<h2 id="current-review"><strong>Current Review</strong></h2>
+<p>This is the main dashboard for executing the Seismicity Review Routine.</p>
+<ul>
+<li><strong>Search Parameters:</strong> Define your query by selecting a specific Author (e.g., <code>scanloc</code>, <code>kgarcia</code>) and precise Start/End Date and Time windows. The app automatically routes your query across SeisComP3 and SeisComP6 databases based on the internal <code>2026-03-17</code> temporal cutoff.</li>
+<li><strong>Dynamic Check Configuration:</strong> A dedicated popover menu allows you to selectively enable or disable any of the 30 built-in TOML checks. The checks are cleanly grouped into logical categories (e.g., Quality &amp; Uncertainty, Velocity Models, Magnitudes by Zone).</li>
+<li><strong>Locatable Events Toggle:</strong> A quick-access dropdown lets you instantly evaluate or ignore the high-volume "Potentially locatable event" rule without digging into the detailed configuration.</li>
+<li><strong>Interactive Data Editor:</strong> Once the engine runs, results are presented in interactive tables. You can check the "Reviewed" (Revisado) box, type custom comments into the "Notes" (Notas) column, and immediately see translated observations.</li>
+<li><strong>Save &amp; Audit:</strong> Click "Save Reviewed Events" to append all checked rows directly to a local persistence file (<code>historical_revision_log.csv</code>), automatically stamping them with your Reviewer Name and the current timestamp.</li>
+</ul>
+<h2 id="revision-history">Revision History</h2>
+<p>A dedicated historical view that loads the <code>historical_revision_log.csv</code> file. It displays a chronological ledger of every event previously marked as "Reviewed," complete with the reviewer's name, the date of review, user-added notes, and the specific anomalies (Observations) that flagged the event in the first place.</p>
+<h2 id="localization">Localization</h2>
+<p>Thanks to the integrated <code>translations.py</code> dictionary, the entire UI (including table headers, backend flagged observations, and categorized rule names) dynamically translates between English and Spanish based on the toggle in the upper right corner. This ensures the app is highly accessible to both local network operators at RSNC and international reviewers.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../cli/" class="btn btn-neutral float-left" title="Command Line Interface (CLI)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../api_reference/" class="btn btn-neutral float-right" title="API Reference">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/KenethGarcia/SieveComP" class="fa fa-code-fork" style="color: #fcfcfc"> KenethGarcia/SieveComP</a>
+        </span>
+    
+    
+      <span><a href="../cli/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../api_reference/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

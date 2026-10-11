@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Automate and standardize seismic catalog processing from SeisComP." />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>SieveComP</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> SieveComP
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#why-sievecomp">Why SieveComP?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-features">Core Features</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documentation-overview">Documentation Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-help-contributing">Getting Help &amp; Contributing</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="TOML_schema/">TOML Schema</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/01_quickstart_api/">Python API Quickstart</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/02_Seiscomp_Queries_Intro/">SeisComP SQL Queries Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/03_Introducing_Duplicate_Search_SieveComP/">Optimizing Duplicates Search</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/04_Polygon_usage/">Polygon validation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/05_Advanced_SieveComP_Usage/">SieveComP: Advanced Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="tutorials/06_Generating_TOML_with_AI/">Generating TOML files with AI</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Interfaces & Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="cli/">Command Line Interface (CLI)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="frontend/">Streamlit Web Application</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="api_reference/">API Reference</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">SieveComP</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/KenethGarcia/SieveComP/edit/master/docs/index.md">Edit on KenethGarcia/SieveComP</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sievecomp-automated-seismic-catalog-evaluation"><em>SieveComP</em>: Automated Seismic Catalog Evaluation</h1>
+<p><strong><em>SieveComP</em></strong> is a robust Python package designed to streamline, automate, and standardize the querying, processing, and filtering of seismic catalog data from SeisComP systems.</p>
+<p>By leveraging human-readable TOML configuration files, <em>SieveComP</em> decouples complex filtering logic from source code. This empowers seismological networks, researchers, and data analysts to build strict, reproducible quality-control pipelines without needing to write hardcoded SQL queries or complex Python evaluation scripts.</p>
+<h2 id="why-sievecomp">Why <em>SieveComP</em>?</h2>
+<p>Integrating SeisComP relational databases into custom Python workflows typically presents a significant bottleneck. Researchers and network operators often resort to manually extracting data, writing complex SQL queries, and building inflexible scripts to validate event parameters.</p>
+<p><em>SieveComP</em> bridges this gap. It provides a list of intuitive rules engine where users define database connections, queries, spatial polygons, duplicate detection windows, and complex boolean quality-control rules entirely within a TOML file. Whether you are running an automated cron job or conducting an interactive review, <em>SieveComP</em> ensures your data validation is consistent, scalable, and easy to maintain.</p>
+<h2 id="core-features">Core Features</h2>
+<ul>
+<li><strong>No-Code Rules Engine:</strong> Define complex logical trees (AND, OR, XOR) using a simple TOML schema to evaluate numeric thresholds, categories, temporal bounds, and column-to-column relations.</li>
+<li><strong>Spatial Polygon Filtering:</strong> Automatically check if events fall inside or outside defined geographic regions using standard polygon files (BNA or GeoJSON).</li>
+<li><strong>Advanced Duplicate Detection:</strong> Identify duplicate seismic events across catalogs using adjacent event tracking or a Sorted Slicing Window Approach (SSWA) based on time and distance thresholds.</li>
+<li><strong>Database Abstraction Layer:</strong> Seamlessly connect to and query single or multiple SeisComP databases (e.g., handling transitions between SeisComP versions) using secure environment variables.</li>
+<li><strong>Flexible Interfaces:</strong> Run and connect your evaluations through a command-line interface (CLI), Python API, or Jupyter Notebook for interactive analysis.</li>
+</ul>
+<h2 id="documentation-overview">Documentation Overview</h2>
+<p>The <em>SieveComP</em> documentation is structured to provide a comprehensive understanding of the package's capabilities, installation procedures, and usage examples. The following sections are included:</p>
+<ul>
+<li><strong>Installation Guide:</strong> Step-by-step instructions for setting up your environment, installing the core library, and adding optional dependencies for the UI and CLI examples.</li>
+<li><strong>TOML Configuration Guide:</strong> The comprehensive manual on how to structure your TOML files, define databases, set up spatial polygons, and build your quality-control rules.</li>
+<li><strong>Tutorials:</strong> Applied examples showing how to use SieveComP across its different interfaces:<ul>
+<li><strong>Command-Line Interface (CLI):</strong> Learn how to run evaluations directly from the terminal.</li>
+<li><strong>Python API:</strong> Explore how to integrate SieveComP into your Python scripts for programmatic access.</li>
+<li><strong>Jupyter Notebook:</strong> Interactive tutorials demonstrating real-world use cases and data analysis workflows.</li>
+</ul>
+</li>
+<li><strong>Reference Documentation:</strong> Detailed descriptions of all classes, methods, and functions available in the <em>SieveComP</em> package.</li>
+</ul>
+<h2 id="getting-help-contributing">Getting Help &amp; Contributing</h2>
+<p>SieveComP is an open-source project. If you encounter bugs, have feature requests, or want to contribute, please visit our <a href="https://github.com/KenethGarcia/SieveComP">GitHub repository</a> to submit issues or pull requests. We welcome contributions from the community to enhance the functionality and usability of the package.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/KenethGarcia/SieveComP" class="fa fa-code-fork" style="color: #fcfcfc"> KenethGarcia/SieveComP</a>
+        </span>
+    
+    
+    
+      <span><a href="installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.6.1
+Build Date UTC : 2026-10-11 20:04:26.429146+00:00
+-->

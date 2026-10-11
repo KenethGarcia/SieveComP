@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>TOML Schema - SieveComP</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "TOML Schema";
+        var mkdocs_page_input_path = "TOML_schema.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> SieveComP
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">TOML Schema</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#database-configuration">Database configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#setting-multiple-database-connections">Setting multiple database connections</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#queries">Queries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#polygons">Polygons</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#duplicates-search">Duplicates Search</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conditions">Conditions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#root-node-checks">Root node: [[checks]]</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#group-node-checksgroups-checksgroupsgroups-etc">Group node: [[checks.groups]], [[checks.groups.groups]], etc</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#condition-node-checksconditions-checksgroupsconditions-etc">Condition node: [[checks.conditions]], [[checks.groups.conditions]], etc</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#condition-types">Condition types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#numeric-rules">Numeric rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#column-column-rules">Column-Column rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#category-rules">Category rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#polygon-rules">Polygon rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#temporal-rules">Temporal rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary-of-condition-types-and-their-required-parameters">Summary of condition types and their required parameters</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-define-your-own-conditions">How to define your own conditions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-simple-check-with-a-single-condition">A simple check with a single condition:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#multiple-conditions-joined-with-a-boolean-operator">Multiple conditions joined with a boolean operator:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#complex-checks-with-groups-of-conditions">Complex checks with groups of conditions:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rejection-example">Rejection example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/01_quickstart_api/">Python API Quickstart</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/02_Seiscomp_Queries_Intro/">SeisComP SQL Queries Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/03_Introducing_Duplicate_Search_SieveComP/">Optimizing Duplicates Search</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/04_Polygon_usage/">Polygon validation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/05_Advanced_SieveComP_Usage/">SieveComP: Advanced Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../tutorials/06_Generating_TOML_with_AI/">Generating TOML files with AI</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Interfaces & Apps</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../cli/">Command Line Interface (CLI)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../frontend/">Streamlit Web Application</a>
+                  </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../api_reference/">API Reference</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">SieveComP</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">TOML Schema</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/KenethGarcia/SieveComP/edit/master/docs/TOML_schema.md">Edit on KenethGarcia/SieveComP</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="toml-schema">TOML Schema</h1>
+<p>The new implementation of the seismic revision routine works around a simple idea: The main code will remain untouchable, and the user will be able to define a schema for the input data. The schema will be defined in a TOML file, which is a simple and human-readable format for configuration files. The schema will define the expected structure of the input data, including the required fields, their types, and any constraints on their values. By doing this, the revision routine will be only a TOML file for the future Python package.</p>
+<h2 id="settings">Settings</h2>
+<p>It is optional to add a settings configuration to overwrite the names of commonly used columns in the DataFrame returned by the SQL query. It provides a single place to adapt the package to database schemas that use different aliases for event type, origin time, or author information. Defined values must be strings and must match the column names in the DataFrame returned by the SQL query. Defined as:</p>
+<pre><code class="language-toml">[settings]  # Default values sketched here (If not defined, the program will use these columns). 
+event_type_column = &quot;event_type&quot;
+time_column       = &quot;time_value&quot;
+author_column     = &quot;creationInfo_author&quot;
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>event_type_column</code> identifies the DataFrame column that contains an event’s classification, such as "earthquake", "explosion", "not locatable", or another catalog-specific type. Used for filtering and grouping events in the checks.</li>
+<li><code>time_column</code> identifies the output column containing the event or origin times. It will be used to sort the queried and resulting arrays. Used for temporal checks and to determine the time window for duplicate searches.</li>
+<li><code>author_column</code> identifies the column containing author or processing-source information. It will be used to filter events based on the corresponding author or processing source. This is particularly useful for excluding events that were automatically generated by the system or by specific users, allowing the checks to focus on events that have been manually reviewed or processed by trusted sources.</li>
+</ul>
+<blockquote>
+<p><strong>NOTE:</strong> <code>author_column</code> setting are experimental in the current version. It establishes shared column conventions now, but they are not yet automatically used to filter events in the core Runner workflow. Future CLI and frontend versions are expected to use them</p>
+</blockquote>
+<h2 id="database-configuration">Database configuration</h2>
+<p>Simple and easy: Define a .env file with the connection content (host, user, password, database) and the code will read it. The .env file should be in the same directory as the main code.</p>
+<pre><code class="language-toml">[[database]]
+env_file = &quot;.env&quot;
+</code></pre>
+<p>If you are familiar with <code>os.environ</code> and <code>dotenv</code>, you can also define the database connection using environment variables. The code will read the environment variables and use them to connect to the database.</p>
+<pre><code class="language-toml">[[database]]
+name       = &quot;sc6&quot;  # Optional, used to identify the connection in the logs
+env_prefix = &quot;SERVERSC6&quot;
+</code></pre>
+<p>Following this schema, in your shell (or in a systemd unit, Docker env, etc.), you must set the environment variables like this:</p>
+<pre><code class="language-bash"># Format is &lt;env_prefix&gt;_&lt;key&gt;, where &lt;key&gt; is one of the following: HOST, USER, PASSWORD, DATABASE, PORT
+export SERVERSC6_HOST=&quot;localhost&quot;
+export SERVERSC6_USER=&quot;your_username&quot;
+export SERVERSC6_PASSWORD=&quot;your_password&quot;
+export SERVERSC6_DATABASE=&quot;your_database&quot;
+export SERVERSC6_PORT=5432
+</code></pre>
+<p>You can also define the database connection directly in the TOML file using the following keys:</p>
+<pre><code class="language-toml">[[database]]
+host = &quot;localhost&quot;
+user = &quot;your_username&quot;
+password = &quot;your_password&quot;
+database = &quot;your_database&quot;
+port = 5432
+</code></pre>
+<blockquote>
+<p><strong>NOTE:</strong> It is highly recommended to use the .env file or environment variables for security reasons, as it allows you to keep sensitive information out of the codebase.</p>
+</blockquote>
+<h3 id="setting-multiple-database-connections">Setting multiple database connections</h3>
+<p>It is also possible to define multiple database connections in the TOML file. Each connection should be defined as a separate table:</p>
+<pre><code class="language-toml">[[database]]
+name = &quot;connection1&quot;
+env_file = &quot;.env&quot;
+
+[[database]]
+name = &quot;connection2&quot;
+host = &quot;localhost&quot;
+user = &quot;your_username&quot;
+password = &quot;your_password&quot;
+database = &quot;your_database&quot;
+port = 5432
+</code></pre>
+<p>or you can define a single .env file with multiple connections and reference them in the TOML file using the <code>env_prefix</code> key:</p>
+<pre><code class="language-toml">[[database]]
+name = &quot;connection1&quot;
+env_file = &quot;.env&quot;
+env_prefix = &quot;CONNECTION1_&quot;
+
+[[database]]
+name = &quot;connection2&quot;
+env_file = &quot;.env&quot;
+env_prefix = &quot;CONNECTION2_&quot;
+</code></pre>
+<p>where the .env file should contain the same fixed variables for each connection, but with different prefixes:</p>
+<pre><code class="language-dotenv">CONNECTION1_HOST=localhost
+CONNECTION1_USER=your_username
+CONNECTION1_PASSWORD=your_password
+CONNECTION1_DATABASE=your_database
+CONNECTION1_PORT=5432
+
+CONNECTION2_HOST=localhost
+CONNECTION2_USER=your_username
+CONNECTION2_PASSWORD=your_password
+CONNECTION2_DATABASE=your_database
+CONNECTION2_PORT=5432
+</code></pre>
+<p>or following the env_prefix convention, you can define the environment variables like this:</p>
+<pre><code class="language-toml">[[database]]
+name = &quot;connection1&quot;
+env_prefix = &quot;EXAMPLE1_&quot;
+
+[[database]]
+name = &quot;connection2&quot;
+env_prefix = &quot;EXAMPLE2_&quot;
+</code></pre>
+<h2 id="queries">Queries</h2>
+<p>It is possible to define a list of queries in the TOML file. Each query should be defined as a table with the following keys:</p>
+<ul>
+<li><code>name</code>: label for the query, used in the logs.</li>
+<li><code>sql_file</code>: path to the SQL file that contains the query. The path can be absolute or relative to the TOML file's directory.</li>
+<li><code>description</code>: human-readable label for documentation/logs. Optional, but recommended for clarity.</li>
+<li><code>database</code>: name of the database connection used by this query. It is optional only when exactly one <code>[[database]]</code> profile is configured. When two or more profiles exist, every non-skipped active query must declare a valid profile name.</li>
+<li><code>skip</code>: set to true to temporarily disable the query without deleting the entry. Skipped queries will not be executed and will not be available for checks.</li>
+</ul>
+<blockquote>
+<p><strong>NOTE:</strong> If you are using more than one database connection, it is assumed that every query will return the same columns. Adjust the queries based on that, even if they are not used in the checks. The code will use the first query to determine the columns and their types.</p>
+</blockquote>
+<pre><code class="language-toml">[[queries]]
+name        = &quot;query1&quot;
+sql_file    = &quot;queries/query1.sql&quot;
+description = &quot;Query 1 — Get all events from the last 24 hours&quot;
+database    = &quot;connection1&quot;  # Required if you have more than one database connection
+
+[[queries]]
+name        = &quot;query2&quot;
+sql_file    = &quot;queries/query2.sql&quot;
+description = &quot;Query 2 — Get all events from the last 7 days&quot;
+database    = &quot;connection2&quot;  # Required if you have more than one database connection
+</code></pre>
+<h2 id="polygons">Polygons</h2>
+<p>You can define a list of polygons in the TOML file. Each polygon can be stored in a file with BNA structure:</p>
+<pre><code class="language-text">&quot;name&quot;,&quot;rank&quot;,type/length
+-86.0022144623824,1.45673466814881
+-84.7666682,3.049999
+-84.3166713,3.5333309
+</code></pre>
+<p>or can be defined in a file with GeoJSON structure:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;Polygon&quot;,
+  &quot;coordinates&quot;: [
+    [
+      [-86.0022144623824, 1.45673466814881],
+      [-84.7666682, 3.049999],
+      [-84.3166713, 3.5333309],
+      [-86.0022144623824, 1.45673466814881]
+    ]
+  ]
+}
+</code></pre>
+<p>And can be referenced in the TOML file like this:</p>
+<pre><code class="language-toml"># ── Polygon files ────────────────────────────────────────────
+# Each [[polygons]] entry declares one polygon.
+# Required keys:
+#   name – identifier used in check rules (must be unique)
+#   path – absolute or relative path to the .txt file
+#            (relative paths are resolved from this TOML's directory)
+# Optional keys:
+#   polygon_type – type of the polygon file (BNA by default or GeoJSON)
+#   description – human-readable label for documentation/logs.
+#   skip        – set to true to temporarily disable without deleting the entry. Skipped polygons will not be loaded and will not be available for checks.
+
+[[polygons]]
+name         = &quot;zona1&quot;
+path         = &quot;polygons/zona1.txt&quot;
+polygon_type = &quot;BNA&quot;
+description  = &quot;Magnitude zone 1 — MLr_1 region&quot;
+
+[[polygons]]
+name         = &quot;zona_experimental&quot;
+path         = &quot;polygons/zona_experimental.txt&quot;
+polygon_type = &quot;GeoJSON&quot;
+description  = &quot;Experimental zone — not yet validated&quot;
+skip         = true
+</code></pre>
+<h2 id="duplicates-search">Duplicates Search</h2>
+<p>You can define a list of duplicate search rules in the TOML file. Each rule should be defined as a table with the following keys:</p>
+<ul>
+<li><code>name</code>: label for the rule, used in the logs.</li>
+<li><code>description</code>: human-readable label for documentation/logs. Optional, but recommended for clarity.</li>
+<li><code>method</code>: the method used to detect duplicates. Options are "adjacent" or "sswa". It defaults to adjacent if not specified. SSWA is a more robust method that uses a sliding window to detect duplicates, while adjacent only checks for duplicates in adjacent events.</li>
+<li><code>event_type</code>: the type of event that the rule applies to. If not defined, the rule will apply to all events. It should be a string or an array of strings. The event type is used to filter the input data before applying the rule.</li>
+<li><code>subset</code>: the columns that will be used to detect duplicates. If not defined, the rule will use the default columns: <code>["time_value", "latitude_value", "longitude_value", "publicID"]</code>. It should be an array of strings.</li>
+<li><code>time_window</code>: the time window in seconds that will be used to detect duplicates. It should be a positive integer.</li>
+<li><code>dist_threshold</code>: the distance threshold in kilometers that will be used to detect duplicates. It should be a positive number.</li>
+</ul>
+<p>As you can note, the only required keys are <code>time_window</code>, and <code>dist_threshold</code>. The rest of the keys are optional and can be used to customize the duplicate search rules. Consider for example the following TOML configuration:</p>
+<pre><code class="language-toml">[[duplicates]]
+name           = &quot;General duplicate search&quot;
+description    = &quot;Detect near-identical events by time and distance proximity&quot;
+method         = &quot;sswa&quot;                      # &quot;adjacent&quot; or &quot;sswa&quot;
+event_type     = [&quot;earthquake&quot;, &quot;explosion&quot;]  # optional
+subset         = [&quot;time_value&quot;, &quot;latitude_value&quot;, &quot;longitude_value&quot;, &quot;publicID&quot;]  # optional
+time_window    = 4
+dist_threshold = 100.0
+
+[[duplicates]]
+name           = &quot;Strict duplicate search for volcanic events&quot;
+description    = &quot;Tighter window for volcanic eruption reports only&quot;
+method         = &quot;adjacent&quot;
+event_type     = &quot;volcanic eruption&quot;
+time_window    = 2
+dist_threshold = 50.0
+</code></pre>
+<h2 id="conditions">Conditions</h2>
+<p>Probably one of the most important parts of the schema is the definition of conditions. Conditions are used to define rules that the input data must satisfy. Each condition will have a name, a description, and a set of rules that define the expected values for the fields in the input data.</p>
+<p>The idea behind the TOML configuration is the use of nested arrays of tables to express the rules cleanly. Each condition will be defined as an array of tables, where each table represents a rule. The rules will be defined using a simple syntax that allows the user to specify the field name, the expected value, and any constraints on the value.</p>
+<p>Think of every check as a tree of logic nodes, where each node is a condition and the leaves are the rules that define the expected values for the fields in the input data. A check is defined using the <code>[[checks]]</code> syntax, and each group of rules is defined using the <code>[[...groups]]</code> syntax. Finally, each condition is defined using the <code>[[...conditions]]</code> syntax. Take into account that the expected keys inside each node will depend on the type of rule that is being defined. Moreover, the system will raise an error to any malformed key or value (e.g., wrong typos, a missing required key, an invalid value for a key, or a key that is not allowed in the current context).</p>
+<blockquote>
+<p><strong>NOTE:</strong> In the IA world, you can just pass this tutorial to a LLM and ask it to generate the TOML file for you. The LLM will be able to understand the structure of the TOML file and generate the appropriate syntax for the rules.</p>
+</blockquote>
+<h3 id="root-node-checks">Root node: <code>[[checks]]</code></h3>
+<p>In the root node, it is required to define:</p>
+<ul>
+<li><code>name</code>: label for the rule, used in the output or logs.</li>
+<li><code>logic</code>: boolean operator that joins all direct children of the root. Options are <code>and</code>, <code>or</code> or <code>xor</code>. It is not required if one single condition is defined in the root node.</li>
+</ul>
+<p>And it is optional to define:</p>
+<ul>
+<li><code>description</code>: human-readable label for documentation/logs.</li>
+<li><code>event_type</code>: the type of event that the check applies to. If not defined, the check will apply to all events. It should be a string or an array of strings. The event type is used to filter the input data before applying the check.</li>
+<li><code>negate</code>: Boolean set to true to negate the final result of the check. Default is false. Negate will be applied after its children are evaluated, and it will not affect the evaluation of the children.</li>
+</ul>
+<h3 id="group-node-checksgroups-checksgroupsgroups-etc">Group node: <code>[[checks.groups]]</code>, <code>[[checks.groups.groups]]</code>, etc</h3>
+<p>In the groups node at any level, it is required to define:</p>
+<ul>
+<li><code>logic</code>: boolean operator that joins all direct children of the group. Options are <code>and</code>, <code>or</code> or <code>xor</code>. Not required in groups with exactly one condition or one child group.</li>
+</ul>
+<p>and it is optional to define:</p>
+<ul>
+<li><code>negate</code>: Boolean set to true to negate the final result of the group. Default is false.</li>
+<li><code>description</code>: human-readable label for documentation/logs.</li>
+<li><code>name</code>: label for the group, used in the output or logs. Names may appear at any nesting depth.</li>
+</ul>
+<blockquote>
+<p>A group node can contain other group nodes or condition nodes. The logic operator will be applied to all direct children of the group node, and the result will be negated if the <code>negate</code> key is set to true. Moreover, every group must have at least one direct child, and needs logic whenever it has more than one direct child. Root node requires at least one direct condition or group. See examples in the next section for more details.</p>
+</blockquote>
+<h3 id="condition-node-checksconditions-checksgroupsconditions-etc">Condition node: <code>[[checks.conditions]]</code>, <code>[[checks.groups.conditions]]</code>, etc</h3>
+<p>In the condition node, it is required to define:</p>
+<ul>
+<li><code>rule_type</code>: the type of rule that will be applied. Options are <code>numeric</code>, <code>category</code>, <code>temporal</code>, <code>polygons</code>, <code>column_column</code>.</li>
+<li><code>mode</code>: operator for the rule. It depends on the <code>rule_type</code>, and must belong to the mode set applicable to its own <code>rule_type</code>. See below for more details.</li>
+<li>Additional parameters that depend on the <code>rule_type</code> and <code>mode</code>. See below for more details.</li>
+</ul>
+<h2 id="condition-types">Condition types</h2>
+<p>This section summarizes the available condition types and their required parameters. Each condition type has its own set of parameters that must be defined in order to create a valid rule. Moreover, each condition must contain only the keys allowed for its <code>rule_type</code>. Unknown, misspelled, irrelevant, or mode-incompatible keys are rejected during configuration validation; they are never ignored.</p>
+<h3 id="numeric-rules">Numeric rules</h3>
+<p>Defined as a numeric comparison between the value of the column and a threshold. The available modes are:</p>
+<ol>
+<li><code>gt</code>: greater than</li>
+<li><code>lt</code>: less than</li>
+<li><code>ge</code>: greater than or equal to</li>
+<li><code>le</code>: less than or equal to</li>
+<li><code>eq</code>: equal to</li>
+<li><code>ne</code>: not equal to</li>
+<li><code>between</code>: between two values (inclusive)</li>
+<li><code>outside</code>: outside two values (exclusive)</li>
+<li><code>abs_gt</code>: absolute value greater than</li>
+<li><code>abs_ge</code>: absolute value greater than or equal to</li>
+</ol>
+<p>Moreover, it is required to define:</p>
+<ul>
+<li><code>threshold</code>: the threshold value for the comparison. Valid for one-side comparisons.</li>
+<li><code>lower</code>, <code>upper</code>: the lower and upper bounds for the comparison. Valid for two-side comparisons (<code>between</code> and <code>outside</code>).</li>
+</ul>
+<h3 id="column-column-rules">Column-Column rules</h3>
+<p>Defined as a comparison between the values of two columns. It follows the general formula:</p>
+<div class="arithmatex">\[ events[left col] quad (mode) quad factor * events[right col] + offset\]</div>
+<p>The available modes are:</p>
+<ol>
+<li><code>gt</code>: greater than</li>
+<li><code>lt</code>: less than</li>
+<li><code>ge</code>: greater than or equal to</li>
+<li><code>le</code>: less than or equal to</li>
+<li><code>eq</code>: equal to</li>
+<li><code>ne</code>: not equal to</li>
+</ol>
+<p>Moreover, it is required to define:</p>
+<ul>
+<li><code>left_col</code>: the name of the left column in the input data that the rule will be applied to.</li>
+<li><code>right_col</code>: the name of the right column in the input data that the rule will be applied to.</li>
+</ul>
+<p>And it is optional to define:</p>
+<ul>
+<li><code>factor</code>: a multiplier for the right column. Default to 1.0 if not defined, it must be a number.</li>
+<li><code>offset</code>: an offset for the right column. Default is 0.0 if not defined, it must be a number.</li>
+</ul>
+<h3 id="category-rules">Category rules</h3>
+<p>Defined as search for a value in a list of categories. The available modes are:</p>
+<ol>
+<li><code>in</code>: the value is in the list of categories</li>
+<li><code>not_in</code>: the value is not in the list of categories</li>
+<li><code>is_null</code>: the value is null</li>
+<li><code>not_null</code>: the value is not null</li>
+</ol>
+<p>It is required to define:</p>
+<ul>
+<li><code>column</code>: the name of the column in the input data that the rule will be applied to.</li>
+</ul>
+<p>And if the mode is <code>in</code> or <code>not_in</code>, it is also required to define:</p>
+<ul>
+<li><code>values</code>: a string or list of strings of categories that the column will be compared to.</li>
+</ul>
+<h3 id="polygon-rules">Polygon rules</h3>
+<p>Defined as a check if the value of the column is inside or outside a polygon. The available modes are:</p>
+<ol>
+<li><code>inside</code>: the value is inside the polygon or if inside ANY of the listed polygons</li>
+<li><code>outside</code>: the value is outside the polygon or if outside ALL the listed polygons</li>
+</ol>
+<p>It is required to define:</p>
+<ul>
+<li><code>lat_col</code>: the name of the column in the input data that contains the latitude values.</li>
+<li><code>lon_col</code>: the name of the column in the input data that contains the longitude values.</li>
+<li><code>polygon</code>: the name or list of names of the polygons that will be used for the check. The polygon must be defined in the <code>[[polygons]]</code> section of the TOML file.</li>
+</ul>
+<h3 id="temporal-rules">Temporal rules</h3>
+<p>Defined as a numeric comparison between the value of the column and a threshold, but the value is expected to be a timestamp. The available modes are:</p>
+<ul>
+<li><code>gt</code>: greater than</li>
+<li><code>lt</code>: less than</li>
+<li><code>ge</code>: greater than or equal to</li>
+<li><code>le</code>: less than or equal to</li>
+<li><code>eq</code>: equal to</li>
+<li><code>ne</code>: not equal to</li>
+</ul>
+<p>It is required to define:</p>
+<ul>
+<li><code>column</code>: the name of the column in the input data that the rule will be applied to.</li>
+<li><code>threshold</code>: the threshold value for the comparison. The value must be a valid timestamp in the <code>pandas.Timestamp</code> class (i.e., '2024-01-01T00:00:00Z' or '2024-01-01 00:00:00').</li>
+</ul>
+<blockquote>
+<p>This option is defined as a referenced tool for time comparisons. However, you can also define the temporal range of your queries directly in the SQL files, and the code will use the results of the query to apply the checks. This is a more efficient way to filter events by time, as it reduces the amount of data that needs to be processed by the checks. In any case, if you don't have any experience in SQL or just want to filter the events by time in a simple way, you can use this option to define temporal conditions in the TOML file.</p>
+</blockquote>
+<h3 id="summary-of-condition-types-and-their-required-parameters">Summary of condition types and their required parameters</h3>
+<table>
+<thead>
+<tr>
+<th>rule_type</th>
+<th>Allowed keys</th>
+<th>Required keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>numeric</code></td>
+<td><code>rule_type</code>, <code>column</code>, <code>mode</code>, <code>threshold</code>, <code>lower</code>, <code>upper</code></td>
+<td><code>rule_type</code>, <code>column</code>, <code>mode</code>; use <code>threshold</code> for <code>gt</code>, <code>ge</code>, <code>lt</code>, <code>le</code>, <code>eq</code>, <code>ne</code>, <code>abs_gt</code>, and <code>abs_ge</code>; use both <code>lower</code> and <code>upper</code> for <code>between</code> and <code>outside</code></td>
+</tr>
+<tr>
+<td><code>temporal</code></td>
+<td><code>rule_type</code>, <code>column</code>, <code>mode</code>, <code>threshold</code></td>
+<td>All listed keys</td>
+</tr>
+<tr>
+<td><code>category</code></td>
+<td><code>rule_type</code>, <code>column</code>, <code>mode</code>, <code>values</code></td>
+<td><code>rule_type</code>, <code>column</code>, <code>mode</code>; <code>values</code> is required for <code>in</code> and <code>not_in</code>, but forbidden for <code>is_null</code> and <code>not_null</code></td>
+</tr>
+<tr>
+<td><code>polygon</code></td>
+<td><code>rule_type</code>, <code>lat_col</code>, <code>lon_col</code>, <code>mode</code>, <code>polygon</code></td>
+<td>All listed keys</td>
+</tr>
+<tr>
+<td><code>column_column</code></td>
+<td><code>rule_type</code>, <code>left_col</code>, <code>right_col</code>, <code>mode</code>, <code>factor</code>, <code>offset</code></td>
+<td><code>rule_type</code>, <code>left_col</code>, <code>right_col</code>, <code>mode</code>; <code>factor</code> and <code>offset</code> are optional</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-define-your-own-conditions">How to define your own conditions</h2>
+<p>The strategy to define conditions is to first set the condition as a boolean operation and after that set the rules that will be applied to the input data. Please review the following examples before continue reading the rest of the documentation:</p>
+<h3 id="a-simple-check-with-a-single-condition">A simple check with a single condition:</h3>
+<p>Define a single root node without group nodes, only one condition is defined. For example:</p>
+<ol>
+<li>Earthquakes with high RMS value:</li>
+</ol>
+<pre><code class="language-toml">[[checks]]
+name = &quot;High RMS&quot;
+event_type = &quot;earthquake&quot;
+
+  [[checks.conditions]]
+  rule_type = &quot;numeric&quot;
+  column = &quot;quality_standardError&quot;
+  mode = &quot;gt&quot;
+  threshold = 1.51
+</code></pre>
+<ol>
+<li>Events inside the polygons "zona2" and "zona_vmm":</li>
+</ol>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Inside zona1&quot;
+
+    [[checks.conditions]]
+    rule_type = &quot;polygon&quot;
+    lat_col = &quot;latitude&quot;
+    lon_col = &quot;longitude&quot;
+    mode = &quot;inside&quot;
+    polygon = [&quot;zona2&quot;, &quot;zona_vmm&quot;]
+</code></pre>
+<h3 id="multiple-conditions-joined-with-a-boolean-operator">Multiple conditions joined with a boolean operator:</h3>
+<p>We can set multiple conditions that follows the same boolean operator by defining a single root node with n conditions. For example:</p>
+<ol>
+<li>Earthquakes with high RMS value (Version 2.0):</li>
+</ol>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Earthquake with high RMS&quot;
+logic = &quot;and&quot;
+
+  [[checks.conditions]]  # Works equal that setting event_type in the root node
+  rule_type = &quot;category&quot;
+  column = &quot;event_type&quot;
+  mode = &quot;in&quot;
+  values = &quot;earthquake&quot;
+
+  [[checks.conditions]]
+  rule_type = &quot;numeric&quot;
+  column = &quot;quality_standardError&quot;
+  mode = &quot;gt&quot;
+  threshold = 1.51
+</code></pre>
+<ol>
+<li>Events not processed by the user:</li>
+</ol>
+<p>To check if an event has not been processed by the user, we need to satisfy all the following conditions:</p>
+<ol>
+<li>The 'creationInfo_author' should be inside ["scanloc", "scautoloc_reg", "scanlocbay", "AI_picker"]</li>
+<li>The event['type'] must be non "not existing"</li>
+<li>The 'creationInfo_agencyID' must be "SGC"</li>
+</ol>
+<p>We can use two alternatives: Define two conditions with <code>event_type</code> in the root node or define a group node with three conditions. For teaching purposes, we will show the second alternative:</p>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Events not processed by the user&quot;
+logic = &quot;and&quot;
+
+  [[checks.conditions]]
+  rule_type = &quot;category&quot;
+  column = &quot;event_type&quot;
+  mode = &quot;not_in&quot;
+  values = &quot;not existing&quot;
+
+  [[checks.conditions]]
+  rule_type = &quot;category&quot;
+  column = &quot;creationInfo_author&quot;
+  mode = &quot;in&quot;
+  values = [&quot;scanloc&quot;, &quot;scautoloc_reg&quot;, &quot;scanlocbay&quot;, &quot;AI_picker&quot;]
+
+  [[checks.conditions]]
+  rule_type = &quot;category&quot;
+  column = &quot;creationInfo_agencyID&quot;
+  mode = &quot;in&quot;
+  values = &quot;SGC&quot;
+</code></pre>
+<p>However, the less-text alternative is to define just two conditions with <code>event_type</code> in the root node:</p>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Events not processed by the user&quot;
+logic = &quot;and&quot;
+event_type = [&quot;earthquake&quot;, &quot;explosion&quot;, &quot;outside of network interest&quot;, &quot;not locatable&quot;]
+
+  [[checks.conditions]]
+  rule_type = &quot;category&quot;
+  column = &quot;creationInfo_author&quot;
+  mode = &quot;in&quot;
+  values = [&quot;scanloc&quot;, &quot;scautoloc_reg&quot;, &quot;scanlocbay&quot;, &quot;AI_picker&quot;]
+
+  [[checks.conditions]]
+  rule_type = &quot;category&quot;
+  column = &quot;creationInfo_agencyID&quot;
+  mode = &quot;in&quot;
+  values = &quot;SGC&quot;
+</code></pre>
+<ol>
+<li>How many events are inside the Bucaramanga nest?</li>
+</ol>
+<p>To check how many events are inside the Bucaramanga nest, consider three conditions joined by an <code>and</code> operator:</p>
+<ul>
+<li>The event must be inside 6-8 degrees in latitude.</li>
+<li>The event must be inside -74 to -72 degrees in longitude.</li>
+<li>The event must be inside 120 to 180 km in depth.</li>
+</ul>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Events inside Bucaramanga nest&quot;
+logic = &quot;and&quot;
+event_type = [&quot;earthquake&quot;]
+
+  [[checks.conditions]]
+  rule_type = &quot;numeric&quot;
+  column = &quot;latitude_value&quot;
+  mode = &quot;between&quot;
+  lower = 6.0
+  upper = 8.0
+
+  [[checks.conditions]]
+  rule_type = &quot;numeric&quot;
+  column = &quot;longitude_value&quot;
+  mode = &quot;between&quot;
+  lower = -74.0
+  upper = -72.0
+
+  [[checks.conditions]]
+  rule_type = &quot;numeric&quot;
+  column = &quot;depth_value&quot;
+  mode = &quot;between&quot;
+  lower = 120.0
+  upper = 180.0
+</code></pre>
+<h3 id="complex-checks-with-groups-of-conditions">Complex checks with groups of conditions:</h3>
+<p>To write complex conditions like (A xor B) or (B and C) you can use the group node. Each group will represent a boolean operation that will be applied to the conditions defined inside the group. For example:</p>
+<ol>
+<li>Correspondence between zone3 and magnitude MLr_3:</li>
+</ol>
+<p>Zone 3 at RSNC is designed by a polygon defined in the <code>polygons/zona3.txt</code> file. We want to check if the events that are inside zone 3 have a magnitude label equal to MLr_3. On the other hand, we want to also check if an event have magnitude label equal to MLr_3, but the event is not inside zone 3. Moreover, it is allowed to have a 'Mw' magnitude label if the event have a 'DESTACADO' comment in seiscomp. This can be expressed as (See Vectorization_vs_Parallelization.ipynb for more details):</p>
+<div class="arithmatex">\[ V quad mathbf{AND} quad (M quad mathbf{XOR} quad I) quad mathbf{AND} quad mathbf{NOT} quad (D quad mathbf{AND} quad A)\]</div>
+<p>where:</p>
+<ul>
+<li>I = Events inside zona3 polygon</li>
+<li>M = magnitude_type == 'MLr_4'</li>
+<li>V = valid event type, meaning event_type is neither 'not existing' nor 'not locatable'</li>
+<li>D = comment contains 'DESTACADO'</li>
+<li>A = magnitude_type == 'Mw'</li>
+</ul>
+<p>The strategy is to divide the check into three parts joined by an <code>and</code> operator. The first part is a condition that will check if the event is valid, the second part is a group that will check the correspondence between zone3 and magnitude MLr_3, and the third check is another group that will check if the event is not a DESTACADO event with magnitude Mw.</p>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Correspondence between zone3 and magnitude MLr_3&quot;
+logic = &quot;and&quot;
+
+    # Part 1: Valid event type condition
+    [[checks.conditions]]
+    rule_type = &quot;category&quot;
+    column = &quot;event_type&quot;
+    mode = &quot;not_in&quot;
+    values = [&quot;not existing&quot;, &quot;not locatable&quot;]
+
+    # Part 2: Correspondence between zone3 and magnitude MLr_3
+    [[checks.groups]]
+    logic = &quot;xor&quot;
+    description = &quot;Correspondence between zone3 and magnitude MLr_3&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;polygon&quot;
+        lat_col = &quot;latitude&quot;
+        lon_col = &quot;longitude&quot;
+        mode = &quot;inside&quot;
+        polygon = &quot;zona3&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;category&quot;
+        column = &quot;magnitude_type&quot;
+        mode = &quot;in&quot;
+        values = [&quot;MLr_3&quot;]
+
+    # Part 3: Not a DESTACADO event with magnitude Mw
+    [[checks.groups]]
+    logic = &quot;and&quot;
+    negate = true
+    description = &quot;Not a DESTACADO event with magnitude Mw&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;category&quot;
+        column = &quot;comment&quot;
+        mode = &quot;in&quot;
+        values = [&quot;DESTACADO&quot;]
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;category&quot;
+        column = &quot;magnitude_type&quot;
+        mode = &quot;in&quot;
+        values = [&quot;Mw&quot;]
+</code></pre>
+<ol>
+<li>Check for locatable events</li>
+</ol>
+<p>As we see in the <em>Vectorization_vs_Parallelization.ipynb</em> notebook, we can define a check that will verify if an event is locatable and have the wrong label. An event is considered locatable if it satisfies the following conditions:</p>
+<div class="arithmatex">\[ (event_type = 'not locatable') quad text{and} quad (quality_usedStationCount geq 4) quad text{and} quad (quality_associatedPhaseCount geq quality_usedStationCount + 2) quad text{if} quad time_value geq 2026-03-17 quad 00:00:00\]</div>
+<div class="arithmatex">\[text{or}\]</div>
+<div class="arithmatex">\[ (event_type = 'not locatable') quad text{and} quad (quality_associatedPhaseCount geq 8) quad text{if} quad time_value &lt; 2026-03-17 quad 00:00:00\]</div>
+<p>We can implement this check using two groups of conditions joined by an <code>or</code> operator. The first group will check the conditions for events with time_value greater than or equal to 2026-03-17 00:00:00, and the second group will check the conditions for events with time_value less than 2026-03-17 00:00:00.</p>
+<pre><code class="language-toml">[[checks]]
+name = &quot;Check for locatable events&quot;
+event_type = &quot;not locatable&quot;
+logic = &quot;or&quot;
+
+    # Group 1: Conditions for events with time_value &gt;= 2026-03-17 00:00:00
+    [[checks.groups]]
+    logic = &quot;and&quot;
+    description = &quot;Locatable events in sc6 (time_value &gt;= 2026-03-17 00:00:00)&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;temporal&quot;
+        column = &quot;time_value&quot;
+        mode = &quot;ge&quot;
+        threshold = &quot;2026-03-17T00:00:00Z&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;numeric&quot;
+        column = &quot;quality_usedStationCount&quot;
+        mode = &quot;ge&quot;
+        threshold = 4
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;column_column&quot;
+        left_col = &quot;quality_associatedPhaseCount&quot;
+        right_col = &quot;quality_usedStationCount&quot;
+        mode = &quot;ge&quot;
+        factor = 1.0
+        offset = 2.0
+
+    # Group 2: Conditions for events with time_value &lt; 2026-03-17 00:00:00
+    [[checks.groups]]
+    logic = &quot;and&quot;
+    description = &quot;Conditions for events with time_value &lt; 2026-03-17 00:00:00&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;temporal&quot;
+        column = &quot;time_value&quot;
+        mode = &quot;lt&quot;
+        threshold = &quot;2026-03-17T00:00:00Z&quot;
+
+        [[checks.groups.conditions]]
+        rule_type = &quot;numeric&quot;
+        column = &quot;quality_associatedPhaseCount&quot;
+        mode = &quot;ge&quot;
+        threshold = 8
+</code></pre>
+<h3 id="rejection-example">Rejection example</h3>
+<p>For example, this condition is invalid because <code>threshold</code> is not permitted for <code>polygon</code> rules:</p>
+<pre><code class="language-toml">[[checks.conditions]]
+rule_type = &quot;polygon&quot;
+lat_col   = &quot;latitude_value&quot;
+lon_col   = &quot;longitude_value&quot;
+mode      = &quot;inside&quot;
+polygon   = &quot;zone1&quot;
+threshold = 10
+</code></pre>
+<p>The validator will raise an error that identifies the condition path and the unsupported key, rather than silently ignoring <code>threshold</code>.</p>
+<h1 id="output-format">Output format</h1>
+<p>It is possible to define the columns to be returned in the output dataframe/file. The output format is defined in the <code>[output]</code> section of the TOML file. The available keys are:</p>
+<ul>
+<li><code>save</code>: a boolean that indicates if the output should be saved to a file. Default is <code>true</code>. If set to <code>false</code>, the output will not be saved to a file.</li>
+<li><code>columns</code>: a list of columns to be returned in the output dataframe/file. If not defined, all columns will be returned.</li>
+<li><code>file_format</code>: the format of the output file. Options are <code>csv</code>, <code>parquet</code>, <code>json</code>, <code>excel</code>, or <code>feather</code>. Default is <code>csv</code>.</li>
+<li><code>file_path</code>: the path to the output file. If not defined, the output will be saved to the current working directory with the name <code>output.&lt;file_format&gt;</code>. The path can be absolute or relative to the current working directory. Take as an example the following TOML configuration:</li>
+</ul>
+<pre><code class="language-toml">[output]
+save = true
+columns = [&quot;publicID&quot;, &quot;time_value&quot;, &quot;latitude_value&quot;, &quot;longitude_value&quot;, &quot;depth_value&quot;, &quot;magnitude_value&quot;, &quot;magnitude_type&quot;, &quot;event_type&quot;]
+file_format = &quot;csv&quot;
+file_path = &quot;output/filtered_events.csv&quot;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../installation/" class="btn btn-neutral float-left" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../tutorials/01_quickstart_api/" class="btn btn-neutral float-right" title="Python API Quickstart">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/KenethGarcia/SieveComP" class="fa fa-code-fork" style="color: #fcfcfc"> KenethGarcia/SieveComP</a>
+        </span>
+    
+    
+      <span><a href="../installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../tutorials/01_quickstart_api/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
