@@ -1,3 +1,8 @@
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Documentation](https://img.shields.io/badge/docs-MkDocs-blue.svg)](https://KenethGarcia.github.io/SieveComP/)
+
 ![Logo](examples/frontend/SGC_logo.png)
 
 **_SieveComP_** is a Python package designed to streamline, automate, and standardize the querying, processing, and filtering of seismic catalog data from SeisComP systems. By leveraging human-readable TOML configuration files, it allows seismological networks to build complex evaluation pipelines without hardcoding logic into scripts. It is distributed under the GNU General Public License Version 3. Please read the complete description of the method and its application in the **publication**.
@@ -11,6 +16,10 @@ SeisComP is a standard software architecture used by seismological observatories
 Furthermore, in an AI-accelerated world, this TOML-based approach offers a direct pathway to integrate Artificial Intelligence into SeisComP operations. By abstracting the pipeline into configuration files, it is remarkably easy to build chatbots or agentic AI systems that interact with seismic data. An AI agent can simply read, generate, or modify these human-readable TOML files to execute complex catalog searches and quality control evaluations, all without needing to touch the underlying databases, raw SQL, or Python source code.
 
 Whether running via its high-level Python API or through complex command-line interfaces or frontend applications, **_SieveComP_** significantly reduces the time and programming expertise required to implement rigorous, automated Python workflows in seismological observatories.
+
+## Documentation
+
+For full installation instructions, TOML schema references, API guides, and UI tutorials, please visit the [Official SieveComP Documentation](https://KenethGarcia.github.io/SieveComP/).
 
 # Attribution
 
