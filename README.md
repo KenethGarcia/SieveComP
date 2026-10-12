@@ -17,7 +17,7 @@ Furthermore, in an AI-accelerated world, this TOML-based approach offers a direc
 
 Whether running via its high-level Python API or through complex command-line interfaces or frontend applications, **_SieveComP_** significantly reduces the time and programming expertise required to implement rigorous, automated Python workflows in seismological observatories.
 
-## Documentation
+# Documentation
 
 For full installation instructions, TOML schema references, API guides, and UI tutorials, please visit the [Official SieveComP Documentation](https://KenethGarcia.github.io/SieveComP/).
 
