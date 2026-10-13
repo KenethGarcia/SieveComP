@@ -36,26 +36,45 @@ Recent literature remarks the growing necessity for automated quality assurance 
 
 SieveComP directly addresses this need by providing an open-source, high performance validation engine tailored exclusively for SeisComP deployments. It allows operators to apply standardized, reproducible filtering rules (via TOML configurations) to ensure that discrepancies are systematically flagged before catalog publication. By providing a secure, read-only abstraction layer, SieveComP modernizes the catalog review process for human analysts and provides a safe API boundary for next-generation AI-driven monitoring agents, reducing analyst workload and improving the fidelity of published seismicity datasets.
 
-# Software Design
+# The SieveComP workflow
 
-text
+SieveComP is designed with a multi-tiered workflow to accommodate a wide range of use cases. Users can interact with the package at three distinct levels of abstraction: the declarative core, the programmatic low-level, and the AI-enhanced workflows.
 
-# Methods
+## Declarative core
 
-text
+At the highest level, SieveComP operates via human-readable TOML configuration files. This allows seismologists to define complex validation pipelines without writing Python code.
+
+- **Configuration files**: The user defines database credentials, static SQL queries to extract data from SeisComP databases, custom polygonal boundaries, and categorical, numeric, or spatial validation rules within a `.toml` file.
+- **Validation engine**: The core engine reads the configuration file, translates the rules into vectorized operations, and applies them to the extracted seismic catalog. The output is a filtered catalog with flagged events, which can be exported in various formats (e.g., CSV).
+- **Inspection & reporting:** The pipeline returns a `RunResult` data class containing distinct `pandas` DataFrames for raw data (`total_events`), logical flag results (`checks`), detected `duplicates`, and the final formatted `output`. Analysts can rapidly iterate on their validation rules by modifying the TOML file and calling the `update_from_cache()` method, which re-evaluates the rules instantly on the cached data without triggering a new database query.
+
+## Low-level workflows
+
+For advanced users building custom applications (such as Streamlit dashboards or dynamic Jupyter notebooks), static TOML files may be too rigid. SieveComP exposes its internal architecture to allow fully programmatic workflows:
+
+- **Dynamic Querying:** Users can intercept static SQL queries defined in the configuration and wrap them in dynamic temporal bounds to fetch specific datasets on demand.
+- **In Memory Injection:** Instead of editing a text file, researchers can construct validation rules as Python dictionaries and inject them directly into the `Runner`'s active memory for instant execution.
+- **Raw vectorized masking:** Users can completely bypass the orchestrator and apply SieveComP’s core `NumPy` vectorized masking functions directly to their Pandas DataFrames. These individual masks can be linked using composite logic to evaluate highly complex, nested seismological criteria without requiring any TOML configuration.
+
+## AI-enhanced workflows
+
+In the modern landscape of scientific computing, SieveComP can work in conjunction with Large Language Models (LLMs) and Agentic AI. Because the primary pipeline is driven by a structured, declarative TOML schema, it works as an ideal tool for AI generation.
+
+- **LLM prompting:** Users can provide an LLM with plain-English seismological requirements (e.g., _"filter events with magnitudes greater than 4.0, depths less than 20 km, and within the specified polygonal region"_). Modern-day LLMs translate these requirements into syntactic TOML configurations.
+- **Agentic AI:** SieveComP can be integrated into autonomous agents that monitor seismic catalogs, generate visualizations, and produce routine reports. By restricting AI interactions to the well-defined SieveComP read-only layer, users can upgrade the efficiency of autonomous agents while mitigating the risks of agentic AI database manipulation.
 
 # Research impact statement
 
-text
+The SieveComP core package is actively utilized to maintain the quality standards of the public seismic catalog published by the Red Sismológica Nacional de Colombia (RSNC) from the Servicio Geológico Colombiano (SGC) [@sgc_catalogo]. Since 2025, it has been integrated into the institution's operational workflows to prepare, filter, and validate the data used to generate all official monthly, semestral, and annual seismicity bulletins [@sgc_boletines]. 
+
+By automating these quality assurance processes, SieveComP directly ensures the reliability and consistency of the seismological data provided to civil authorities and the public. Consequently, any current or future research that relies on SGC-RSNC data is passively impacted by SieveComP, as the package establishes and guarantees the high-quality standard of the underlying datasets used in those scientific discoveries.
 
 # AI usage disclosure
 
-text 
+Generative AI tools were utilized during development strictly to accelerate code implementation, generate test boilerplate, troubleshoot interfaces, and draft documentation. All AI-assisted outputs were reviewed, edited, and validated by the human author, who retained full responsibility for the framework's architecture, core logic, and all scientific and evaluative decisions.
 
 # Acknowledgements
 
-text
+The author acknowledges the operative and seismologist team at the Red Sismológica Nacional de Colombia (RSNC) for their invaluable assistance with the implementation, defining requirements, generating use case ideas, and conducting several internal testing phases of the core package. Support from the Servicio Geológico Colombiano (SGC) is also gratefully acknowledged for providing the necessary resources, including SeisComP licensing and computational hardware.
 
 # References
-
-text
