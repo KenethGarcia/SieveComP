@@ -65,10 +65,9 @@ In the modern landscape of scientific computing, SieveComP can work in conjuncti
 
 # Research impact statement
 
-The SieveComP core package is actively utilized to maintain the quality standards of the public seismic catalog published by the Red Sismológica Nacional de Colombia (RSNC) from the Servicio Geológico Colombiano (SGC) [@sgc_catalogo]. Since 2025, it has been integrated into the institution's operational workflows to prepare, filter, and validate the data used to generate all official monthly, semestral, and annual seismicity bulletins [@sgc_boletines]. 
+The SieveComP core package is actively utilized to maintain the quality standards of the public seismic catalog published by the Red Sismológica Nacional de Colombia (RSNC) from the Servicio Geológico Colombiano (SGC) [@sgc_catalogo]. Since 2025, it has been integrated into the institution's operational workflows specifically to filter, validate, and standardize the foundational data *before* it is incorporated into the official monthly, semestral, and annual seismicity bulletins [@sgc_boletines]. 
 
-By automating these quality assurance processes, SieveComP directly ensures the reliability and consistency of the seismological data provided to civil authorities and the public. Consequently, any current or future research that relies on SGC-RSNC data is passively impacted by SieveComP, as the package establishes and guarantees the high-quality standard of the underlying datasets used in those scientific discoveries.
-
+By automating these quality assurance processes, SieveComP acts as the critical auditing layer, directly ensuring the reliability and consistency of the seismological data provided to civil authorities and the public. Consequently, any current or future research that relies on SGC-RSNC data is passively impacted by SieveComP, as the package establishes and guarantees the high-quality standard of the underlying datasets used in those scientific discoveries.
 # AI usage disclosure
 
 Generative AI tools were utilized during development strictly to accelerate code implementation, generate test boilerplate, troubleshoot interfaces, and draft documentation. All AI-assisted outputs were reviewed, edited, and validated by the human author, who retained full responsibility for the framework's architecture, core logic, and all scientific and evaluative decisions.
