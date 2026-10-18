@@ -642,6 +642,7 @@ class ConfigValidator:
                 condition.get("values"),
                 field="values",
                 context=context,
+                allow_empty=True,
             )
             return
 
@@ -850,10 +851,27 @@ class ConfigValidator:
             *,
             field: str,
             context: str,
+            allow_empty: bool = False,
     ) -> None:
-        """Require either one nonempty string or a nonempty list of strings."""
-        cls._as_nonempty_string_list(
-            value,
-            field=field,
-            context=context,
-        )
+        """Require either one string or a nonempty list of strings."""
+        if not allow_empty:
+            cls._as_nonempty_string_list(
+                value,
+                field=field,
+                context=context,
+            )
+            return
+
+        if isinstance(value, str):
+            return
+
+        if not isinstance(value, list) or not value:
+            raise ValueError(
+                f"{context}: {field} must be a nonempty list of strings."
+            )
+
+        for item in value:
+            if not isinstance(item, str):
+                raise ValueError(
+                    f"{context}: {field} must be a string."
+                )
