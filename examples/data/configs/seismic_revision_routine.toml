@@ -1211,11 +1211,11 @@ event_type = ["earthquake", "outside of network interest"]
 name = "Event with comment different from DESTACADO"
 logic = "and"
 
-    [[checks.conditions]]
-    rule_type = "category"
-    column = "comment"
-    mode = "not_in"
-    values = ["DESTACADO"]
+        [[checks.conditions]]
+        rule_type = "category"
+        column = "comment"
+        mode = "not_in"
+        values = ["DESTACADO", ""]
 
     [[checks.conditions]]
     rule_type = "category"
