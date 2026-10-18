@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: 'pip'
@@ -36,14 +36,14 @@ jobs:
       - name: Run pytest
         env:
           # Ensures Python can find the 'sievecomp' module during execution
-            PYTHONPATH: ${{ github.workspace }}
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest tests/ -v --cov=sievecomp --cov-report=term-missing --cov-report=xml
 
       - name: Upload coverage report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always() # Ensures the report uploads even if some tests fail
         with:
-            name: coverage-report
-            path: coverage.xml
-            retention-days: 14
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 14
