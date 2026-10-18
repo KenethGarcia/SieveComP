@@ -1215,7 +1215,7 @@ logic = "and"
     rule_type = "category"
     column = "comment"
     mode = "not_in"
-    values = ["DESTACADO", ""]
+    values = ["DESTACADO"]
 
     [[checks.conditions]]
     rule_type = "category"
