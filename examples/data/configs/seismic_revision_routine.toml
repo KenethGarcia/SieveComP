@@ -155,6 +155,11 @@ path        = "../polygons/SGC/RSNC/cesar.txt"
 description = "Cesar region - Model Cesar"
 
 [[polygons]]
+name        = "prv"
+path        = "../polygons/SGC/RSNC/PRV.txt"
+description = "Providence zone - Model PRV"
+
+[[polygons]]
 name        = "ovsm"
 path        = "../polygons/SGC/volcanological_observatories/obsman.txt"
 description = "Observatorio Sismológico de Manizales - OVSM region"
@@ -1221,3 +1226,31 @@ logic = "and"
     rule_type = "category"
     column = "comment"
     mode = "not_null"
+
+# 32. Correspondence between Providence zone and earth model Providence
+[[checks]]
+name = "Wrong model for PRV zone"
+logic = "and"
+
+    [[checks.conditions]]
+    rule_type = "category"
+    column = "event_type"
+    mode = "not_in"
+    values = ["not existing", "not locatable"]
+
+    [[checks.groups]]
+    logic = "xor"
+    description = "Correspondence between PRV zone and earth model PRV"
+
+        [[checks.groups.conditions]]
+        rule_type = "polygon"
+        lat_col = "latitude_value"
+        lon_col = "longitude_value"
+        mode = "inside"
+        polygon = "prv"
+
+        [[checks.groups.conditions]]
+        rule_type = "category"
+        column = "earthModelID"
+        mode = "in"
+        values = "PRV"
