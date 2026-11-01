@@ -442,31 +442,55 @@ if view == "view_1":
             st.divider()
 
             # Save action button
+            # Save action button
             col_save, _ = st.columns([1, 2])
             with col_save:
                 if st.button(TEXTS["btn_save"][lang], type="primary", width="stretch"):
-                    # Extract checked rows from BOTH tables
-                    rev1 = edited_df[edited_df[TEXTS["revisado"]["ES"]] == True].copy() if TEXTS["revisado"]["ES"] in edited_df.columns else pd.DataFrame()
-                    rev2 = edited_df_totals[edited_df_totals[TEXTS["revisado"]["ES"]] == True].copy() if TEXTS["revisado"]["ES"] in edited_df_totals.columns else pd.DataFrame()
+                    # 1. Define the exact set of columns to be saved
+                    # Audit columns + user inputs + TOML/UI display columns + Observations
+                    base_cols = [c for c in short_names.keys() if c != "Observations"]
+                    target_columns = [
+                                         TEXTS["revisado"]["ES"],
+                                         TEXTS["notas"]["ES"],
+                                     ] + [c for c in base_cols if c in df.columns or c in df_totals.columns] + [
+                                         "Observations"]
 
-                    # Combine them into a single DataFrame
+                    # 2. Extract and filter rows from Table 1
+                    rev1 = pd.DataFrame()
+                    if TEXTS["revisado"]["ES"] in edited_df.columns:
+                        mask1 = edited_df[TEXTS["revisado"]["ES"]] == True
+                        if mask1.any():
+                            # Only keep columns belonging to target_columns
+                            cols1 = [c for c in target_columns if c in edited_df.columns]
+                            rev1 = edited_df.loc[mask1, cols1].copy()
+
+                    # 3. Extract and filter rows from Table 2
+                    rev2 = pd.DataFrame()
+                    if TEXTS["revisado"]["ES"] in edited_df_totals.columns:
+                        mask2 = edited_df_totals[TEXTS["revisado"]["ES"]] == True
+                        if mask2.any():
+                            if "Observations" not in edited_df_totals.columns:
+                                edited_df_totals["Observations"] = None
+                            # Strictly filter out the extra raw database columns
+                            cols2 = [c for c in target_columns if c in edited_df_totals.columns]
+                            rev2 = edited_df_totals.loc[mask2, cols2].copy()
+
+                    # 4. Concatenate with identical column schemas (prevents NaN columns)
                     reviewed = pd.concat([rev1, rev2], ignore_index=True)
 
-                    # Check if the resulting DataFrame is not empty and has the 'publicID' column
                     if not reviewed.empty and "publicID" in reviewed.columns:
-
-                        # Ensure 'Observations' exists even if ONLY Table 2 was checked <---
-                        if "Observations" not in reviewed.columns:
-                            reviewed["Observations"] = None
-
-                        # Drop duplicates (keeps the first occurrence from rev1 so observations aren't lost)
                         reviewed = reviewed.drop_duplicates(subset=["publicID"])
 
-                        # Add audit columns
+                        # Add audit stamps
                         reviewed["Revisor"] = revisor_name
                         reviewed["Fecha Revisión"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-                        # Save to CSV
+                        # Reorder columns cleanly: Audit info first, followed by data, then Observations
+                        front_cols = ["Revisor", "Fecha Revisión", TEXTS["revisado"]["ES"], TEXTS["notas"]["ES"]]
+                        remaining_cols = [c for c in reviewed.columns if c not in front_cols]
+                        reviewed = reviewed[front_cols + remaining_cols]
+
+                        # Save to CSV or Excel
                         save_header = not os.path.exists(LOG_FILE)
                         reviewed.to_csv(LOG_FILE, mode='a', header=save_header, index=False)
 
