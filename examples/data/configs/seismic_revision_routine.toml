@@ -59,7 +59,8 @@ columns = ["time_value",
     "quality_associatedPhaseCount",
     "creationInfo_author",
     "event_type",
-    "creationInfo_agencyID"]
+    "creationInfo_agencyID",
+    "comment"]
 
 
 # ── Database connection ───────────────────────────────────────

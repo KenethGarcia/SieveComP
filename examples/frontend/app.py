@@ -364,7 +364,7 @@ if view == "view_1":
                     "quality_standardError": "RMS", "depth_uncertainty": "ErrZ",
                     "latitude_uncertainty": "ErrLat", "longitude_uncertainty": "ErrLon",
                     "quality_associatedPhaseCount": "Fases", "creationInfo_author": "Autor",
-                    "event_type": "Tipo Evento", "creationInfo_agencyID": "Agencia",
+                    "event_type": "Tipo Evento", "creationInfo_agencyID": "Agencia", "comment": "Comentario",
                     "Observations": "Observaciones"
                 }
             else:
@@ -374,7 +374,7 @@ if view == "view_1":
                     "quality_standardError": "RMS", "depth_uncertainty": "ErrZ",
                     "latitude_uncertainty": "ErrLat", "longitude_uncertainty": "ErrLon",
                     "quality_associatedPhaseCount": "Phases", "creationInfo_author": "Author",
-                    "event_type": "Event Type", "creationInfo_agencyID": "Agency",
+                    "event_type": "Event Type", "creationInfo_agencyID": "Agency", "comment": "Comment",
                     "Observations": "Observations"
                 }
 
@@ -492,7 +492,7 @@ elif view == "view_2":
                     lambda x: translate_flags(x, lang)
                 )
 
-            front_cols = ["Revisado", "Revisor", "Fecha Revisión", "Notas", "Observations"]
+            front_cols = ["Revisado", "Revisor", "Fecha Revisión", "Notas", "comment", "Observations"]
             front_cols_present = [c for c in front_cols if c in df_hist.columns]
             back_cols = [c for c in df_hist.columns if c not in front_cols_present]
 
