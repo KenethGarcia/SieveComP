@@ -418,21 +418,58 @@ logic= "and"
 # 11. Pacific or Caribbean events with high depth (> 30 km)
 [[checks]]
 name = "Pacific/Caribbean event with high depth"
-logic = "and"
+logic = "or"
 event_type = ["earthquake", "outside of network interest"]
 
-    [[checks.conditions]]
-    rule_type = "numeric"
-    column = "depth_value"
-    mode = "gt"
-    threshold = 30
+    # Case 1: Depth > 30 km inside the Pacific or Caribbean polygons
+    [[checks.groups]]
+    logic = "and"
+    description = "Case 1: Depth > 30 km inside the Pacific or Caribbean polygons"
 
-    [[checks.conditions]]
-    rule_type = "polygon"
-    lat_col = "latitude_value"
-    lon_col = "longitude_value"
-    mode = "inside"
-    polygon = ["pacifico", "caribe"]
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column    = "depth_value"
+        mode      = "gt"
+        threshold = 30
+
+        [[checks.groups.conditions]]
+        rule_type = "polygon"
+        lat_col   = "latitude_value"
+        lon_col   = "longitude_value"
+        mode      = "inside"
+        polygon   = ["pacifico", "caribe"]
+
+    # Case 2: Depth > 30 km outside the NLL polygon and inside the spatial window (lat: 1.5 to 7.2, lon: -80 to -77)
+    [[checks.groups]]
+    logic = "and"
+    description = "Case 2: Depth > 30 km outside the NLL polygon and inside the spatial window (lat: 1.5 to 7.2, lon: -80 to -77)"
+
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column    = "depth_value"
+        mode      = "gt"
+        threshold = 30
+
+        [[checks.groups.conditions]]
+        rule_type = "polygon"
+        lat_col   = "latitude_value"
+        lon_col   = "longitude_value"
+        mode      = "outside"
+        polygon   = "nll"
+
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column    = "latitude_value"
+        mode      = "between"
+        lower     = 1.5
+        upper     = 7.2
+
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column    = "longitude_value"
+        mode      = "between"
+        lower     = -80.0
+        upper     = -77.0
 
 # 12. The event is inside the local zone and event_type is "outside of network interest".
 [[checks]]
@@ -1093,6 +1130,23 @@ logic = "and"
         mode = "in"
         values = "CARMA"
 
+    [[checks.groups]]
+    logic = "and"
+    negate = true
+    description = "Exclude explosions with less than 4 phases used"
+
+        [[checks.groups.conditions]]
+        rule_type = "category"
+        column = "event_type"
+        mode = "in"
+        values = "explosion"
+
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column = "quality_usedPhaseCount"
+        mode = "lt"
+        threshold = 4
+
 # 27. Correspondence between Cesar zone and earth model Cesar
 [[checks]]
 name = "Wrong model for Cesar zone"
@@ -1120,6 +1174,23 @@ logic = "and"
         column = "earthModelID"
         mode = "in"
         values = "modelCesar2"
+
+    [[checks.groups]]
+    logic = "and"
+    negate = true
+    description = "Exclude explosions with less than 4 phases used"
+
+        [[checks.groups.conditions]]
+        rule_type = "category"
+        column = "event_type"
+        mode = "in"
+        values = "explosion"
+
+        [[checks.groups.conditions]]
+        rule_type = "numeric"
+        column = "quality_usedPhaseCount"
+        mode = "lt"
+        threshold = 4
 
 # 28. Correspondence between PtoGtn zone and earth model PtoGtn
 [[checks]]
