@@ -3,7 +3,7 @@
 [![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
 [![Documentation](https://img.shields.io/badge/docs-MkDocs-blue.svg)](https://KenethGarcia.github.io/SieveComP/)
 
-![Logo](examples/frontend/SGC_logo.png)
+<!-- ![Logo](examples/frontend/SGC_logo.png) -->
 
 **_SieveComP_** is a Python package designed to streamline, automate, and standardize the querying, processing, and filtering of seismic catalog data from SeisComP systems. By leveraging human-readable TOML configuration files, it allows seismological networks to build complex evaluation pipelines without hardcoding logic into scripts. It is distributed under the GNU General Public License Version 3. Please read the complete description of the method and its application in the **publication**.
 
@@ -23,7 +23,8 @@ For full installation instructions, TOML schema references, API guides, and UI t
 
 # Attribution
 
-If you use this code in a publication, please refer to the package by its name and cite the corresponding JOSS publication (Citation details to be updated upon publication). For any questions, please email Keneth Garcia-Cifuentes ([stivengarcia7113@gmail.com](mailto:stivengarcia7113@gmail.com)) or contact the RSNC team at [radicacioncorrespondencia@sgc.gov.co](https://www.sgc.gov.co/).
+If you use this code in a publication, please refer to the package by its name and cite the corresponding JOSS publication (Citation details to be updated upon publication). For any questions, please email Keneth Garcia-Cifuentes ([stivengarcia7113@gmail.com](mailto:stivengarcia7113@gmail.com)). 
+<!-- or contact the RSNC team at [radicacioncorrespondencia@sgc.gov.co](https://www.sgc.gov.co/). -->
 
 # Dependencies and Installation
 
